@@ -89,7 +89,9 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	outline: none;
 	outline-offset: none;
 }
-/* Navigation */
+
+
+/* Navegación */
 #menu {
 	padding: 20px;
 	transition: all 0.8s;
@@ -170,7 +172,9 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	color: #fff;
 	background-color: #d4bc6c;
 }
-/* Header Section */
+
+
+/* Header */
 .intro {
 	display: table;
 	width: 100%;
@@ -209,7 +213,9 @@ header .intro-text {
 	padding-bottom: 200px;
 	text-align: center;
 }
-/* About Section */
+
+
+/* Taller */
 #about {
 	padding: 120px 0;
 }
@@ -237,7 +243,9 @@ header .intro-text {
 	line-height: 24px;
 	margin: 15px 0 30px;
 }
-/* Menu Section */
+
+
+/* Inventario */
 #restaurant-menu {
 	padding: 0 0 60px 0;
 }
@@ -290,6 +298,40 @@ header .intro-text {
 	color: #555;
 	margin-top: -26px;
 }
+
+.letters-list {
+	list-style: none;
+	padding: 0;
+	margin: 10px 0 0 0;
+  }
+  
+  .letters-list li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size: 16px;
+  }
+  
+  .letter-name {
+	font-weight: 600;
+	margin-right: 10px;
+  }
+  
+  .letter-dots {
+	flex-grow: 1;
+	border-bottom: 1px dotted #ccc;
+	margin: 0 10px;
+  }
+  
+  .letter-units {
+	font-style: italic;
+	font-size: 16px;
+  }
+  
+  
+  
+
+
 /* Portfolio Section */
 #portfolio {
 	padding: 0 0 120px 0;
@@ -412,6 +454,8 @@ ol.type li a:hover {
 .hover-bg:hover .hover-text {
 	opacity: 1;
 }
+
+
 /* Team Section */
 #team {
 	color: #fff;
@@ -463,6 +507,8 @@ ol.type li a:hover {
 	padding: 0 10px;
 	font-size: 15px;
 }
+
+
 /* Call Reservation Section */
 #call-reservation {
 	padding: 90px 0;
@@ -493,6 +539,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8eb640', end
 	font-size: 20px;
 	margin: 5px 0;
 }
+
+
 /* Contact Section */
 #contact {
 	padding: 100px 0 60px 0;
@@ -568,6 +616,8 @@ color: #777;
 #contact .contact-item p {
 	font-size: 16px;
 }
+
+
 /* Footer Section*/
 #footer {
 	background: #262626;

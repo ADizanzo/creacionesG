@@ -81,3 +81,21 @@ function main() {
 
 }
 main();
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const toggles = document.querySelectorAll('.toggle-list');
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener('click', function () {
+      const targetId = this.dataset.target;
+      const targetList = document.getElementById(targetId);
+
+      if (targetList.style.display === 'none' || targetList.style.display === '') {
+        targetList.style.display = 'block';
+      } else {
+        targetList.style.display = 'none';
+      }
+    });
+  });
+});
