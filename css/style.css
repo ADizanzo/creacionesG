@@ -91,6 +91,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 }
 
 
+
 /* Navegación */
 #menu {
 	padding: 20px;
@@ -174,6 +175,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 }
 
 
+
 /* Header */
 .intro {
 	display: table;
@@ -213,6 +215,7 @@ header .intro-text {
 	padding-bottom: 200px;
 	text-align: center;
 }
+
 
 
 /* Taller */
@@ -328,11 +331,9 @@ header .intro-text {
 	font-size: 16px;
   }
   
-  
-  
 
 
-/* Portfolio Section */
+/* Galería */
 #portfolio {
 	padding: 0 0 120px 0;
 }
@@ -456,7 +457,7 @@ ol.type li a:hover {
 }
 
 
-/* Team Section */
+/* Profesores */
 #team {
 	color: #fff;
 	background: #444 url(../img/team-bg.jpg) center top no-repeat fixed;
@@ -509,7 +510,8 @@ ol.type li a:hover {
 }
 
 
-/* Call Reservation Section */
+
+/* Reservas */
 #call-reservation {
 	padding: 90px 0;
 	color: #fff;
@@ -541,7 +543,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8eb640', end
 }
 
 
-/* Contact Section */
+
+/* Contacto */
 #contact {
 	padding: 100px 0 60px 0;
 	background: #F6F6F6;
@@ -618,7 +621,8 @@ color: #777;
 }
 
 
-/* Footer Section*/
+
+/* Footer */
 #footer {
 	background: #262626;
 	padding: 50px 0 0 0;
