@@ -84,18 +84,47 @@ main();
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  // Toggle listas
   const toggles = document.querySelectorAll('.toggle-list');
-
   toggles.forEach(toggle => {
     toggle.addEventListener('click', function () {
       const targetId = this.dataset.target;
       const targetList = document.getElementById(targetId);
-
-      if (targetList.style.display === 'none' || targetList.style.display === '') {
-        targetList.style.display = 'block';
-      } else {
-        targetList.style.display = 'none';
-      }
+      targetList.style.display = (targetList.style.display === 'none' || targetList.style.display === '') ? 'block' : 'none';
     });
   });
+
+  // --- Actualización de precios con persistencia local ---
+  const baseDate = new Date("2025-07-01");
+  const today = new Date();
+  const monthsElapsed = (today.getFullYear() - baseDate.getFullYear()) * 12 + (today.getMonth() - baseDate.getMonth());
+  if (monthsElapsed <= 0) return;
+
+  const increaseFactor = Math.pow(1.05, monthsElapsed);
+  const prices = document.querySelectorAll('.menu-item-price');
+
+  // Cargar datos desde localStorage
+  const storedPrices = JSON.parse(localStorage.getItem('updatedPrices') || '{}');
+
+  prices.forEach((priceEl, index) => {
+    const priceText = priceEl.textContent.trim();
+    const priceMatch = priceText.match(/\$([\d]+)/);
+    if (!priceMatch) return;
+
+    const key = `price-${index}`;
+
+    // Si ya está guardado en localStorage, usarlo
+    if (storedPrices[key]) {
+      priceEl.textContent = `$${storedPrices[key]}`;
+    } else {
+      // Calcular nuevo precio y guardar
+      const originalPrice = parseFloat(priceMatch[1]);
+      const updatedPrice = Math.round(originalPrice * increaseFactor);
+      priceEl.textContent = `$${updatedPrice}`;
+      storedPrices[key] = updatedPrice;
+    }
+  });
+
+  // Guardar precios en localStorage
+  localStorage.setItem('updatedPrices', JSON.stringify(storedPrices));
 });
