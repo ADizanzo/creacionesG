@@ -43,7 +43,7 @@ function main() {
   });
 	
   	// Portfolio isotope filter
-    $(window).load(function() {
+    $(window).on('load', function() {
         var $container = $('.portfolio-items');
         $container.isotope({
             filter: '*',
@@ -106,24 +106,32 @@ document.addEventListener('DOMContentLoaded', function () {
   // Cargar datos desde localStorage
   const storedPrices = JSON.parse(localStorage.getItem('updatedPrices') || '{}');
 
-  prices.forEach((priceEl, index) => {
-    const priceText = priceEl.textContent.trim();
-    const priceMatch = priceText.match(/\$([\d]+)/);
-    if (!priceMatch) return;
 
-    const key = `price-${index}`;
+prices.forEach(priceEl => {
+  const id = priceEl.getAttribute('data-id');
+  if (!id) {
+    console.warn('Elemento sin data-id:', priceEl);
+    return; // Evitar errores si falta el atributo
+  }
 
-    // Si ya está guardado en localStorage, usarlo
-    if (storedPrices[key]) {
-      priceEl.textContent = `$${storedPrices[key]}`;
-    } else {
-      // Calcular nuevo precio y guardar
-      const originalPrice = parseFloat(priceMatch[1]);
-      const updatedPrice = Math.round(originalPrice * increaseFactor);
-      priceEl.textContent = `$${updatedPrice}`;
-      storedPrices[key] = updatedPrice;
-    }
-  });
+  const priceText = priceEl.textContent.trim();
+  const priceMatch = priceText.match(/\$ ?([\d.,]+)/);
+  if (!priceMatch) return;
+
+  const originalPrice = parseFloat(priceMatch[1].replace('.', '').replace(',', '.'));
+  const key = `price-${id}`;
+
+  // Si ya está guardado, usarlo
+  if (storedPrices[key]) {
+    priceEl.textContent = `$${storedPrices[key]}`;
+  } else {
+    // Calcular nuevo precio y guardar
+    const updatedPrice = Math.round(originalPrice * increaseFactor);
+    priceEl.textContent = `$${updatedPrice}`;
+    storedPrices[key] = updatedPrice;
+  }
+});
+
 
   // Guardar precios en localStorage
   localStorage.setItem('updatedPrices', JSON.stringify(storedPrices));
