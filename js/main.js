@@ -1,4 +1,4 @@
-function main() {
+function main() { 
   (function () {
     'use strict';
 
@@ -82,18 +82,12 @@ function calcularMesesDesde(fechaBaseStr) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Toggle listas desplegables
-  const toggles = document.querySelectorAll('.toggle-list');
-  toggles.forEach(toggle => {
-    toggle.addEventListener('click', function () {
-      const targetId = this.dataset.target;
-      const targetList = document.getElementById(targetId);
-      targetList.style.display = (targetList.style.display === 'none' || targetList.style.display === '') ? 'block' : 'none';
-    });
-  });
+  const baseDate = new Date("2025-07-01");
+  const today = new Date();
+  const monthsElapsed = (today.getFullYear() - baseDate.getFullYear()) * 12 + (today.getMonth() - baseDate.getMonth());
+  if (monthsElapsed <= 0) return;
 
-  const baseDate = '2025-07-01';
-  const monthsElapsed = calcularMesesDesde(baseDate);
+  const increaseFactor = Math.pow(1.05, monthsElapsed);
   const prices = document.querySelectorAll('.menu-item-price');
   const storedPrices = JSON.parse(localStorage.getItem('updatedPrices') || '{}');
 
@@ -106,30 +100,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const priceText = priceEl.textContent.trim();
     const priceMatch = priceText.match(/\$ ?([\d.,]+)/);
-    if (!priceMatch) return;
+    if (!priceMatch) {
+      console.warn(`Precio no válido en el producto con ID ${id}:`, priceText);
+      return;
+    }
 
-    const key = `price-${id}`;
-    let originalPrice;
+    const raw = priceMatch[1].replace(/\./g, '').replace(/,/g, '.');
+    const originalPrice = parseFloat(raw);
+    if (isNaN(originalPrice)) {
+      console.warn(`No se pudo parsear el precio original (${raw}) para ID: ${id}`);
+      return;
+    }
 
-    if (storedPrices[key]) {
-      originalPrice = storedPrices[key].originalPrice;
-    } else {
-      const raw = priceMatch[1]
-        .replace(/\./g, '')     // Quitar separador de miles
-        .replace(/,/g, '.');    // Convertir decimal europeo a punto
-
-      originalPrice = parseFloat(raw);
-
-      storedPrices[key] = {
+    // Guardar original SOLO si no está en localStorage
+    if (!storedPrices[`price-${id}`]) {
+      storedPrices[`price-${id}`] = {
         originalPrice: originalPrice,
-        baseDate: baseDate
+        baseDate: "2025-07-01"
       };
     }
 
-    const updatedPrice = Math.round(originalPrice * Math.pow(1.05, monthsElapsed));
+    const base = storedPrices[`price-${id}`];
+    const updatedPrice = Math.round(base.originalPrice * increaseFactor);
     priceEl.textContent = `$${updatedPrice}`;
   });
 
-  // Guardar en localStorage
   localStorage.setItem('updatedPrices', JSON.stringify(storedPrices));
 });
